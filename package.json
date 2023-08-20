@@ -1,25 +1,33 @@
 {
   "name": "generator-password",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.1.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
-    "preview": "vite preview"
+    "typecheck": "vitest typecheck",
+    "preview": "vite preview",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@vue/test-utils": "^2.4.1",
     "pinia": "^2.1.6",
     "pinia-plugin-persistedstate": "^3.1.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^4.2.3",
+    "@vitejs/plugin-vue": "^4.3.1",
+    "@vue/test-utils": "^2.4.0",
     "autoprefixer": "^10.4.15",
+    "gh-pages": "^5.0.0",
+    "happy-dom": "^9.20.3",
     "postcss": "^8.4.28",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
+    "vitest": "^0.34.2",
     "vue-tsc": "^1.8.5"
   }
 }
