@@ -33,6 +33,9 @@ export const usePasswordStore = defineStore("password", {
         getTotalElementsPasswordsArray(): number {
             return this.passwords.length;
         },
+        deleteUserName(): void {
+            this.userName = '';
+        },
 
         resetAll(): void {
             this.userName = '';

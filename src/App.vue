@@ -14,12 +14,10 @@ onMounted(() => {
   userName.value = store.getUsername;
 })
 
-function addUsername() {
+function addUsername(): void {
   store.addUserName(newUserName.value)
   userName.value = store.getUsername;
 }
-
-
 
 </script>
 <template>
