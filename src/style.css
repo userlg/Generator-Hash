@@ -3,7 +3,11 @@
 @tailwind utilities;
 
 
-html,
+
+html {
+  @apply overflow-hidden h-full;
+}
+
 body {
-  @apply overflow-hidden bg-gray-100;
+  @apply overflow-hidden min-h-screen h-screen bg-gradient-to-r from-white via-gray-100 to-gray-200;
 }

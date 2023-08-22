@@ -14,12 +14,9 @@ const wrapper = mount(App);
 
 const store = usePasswordStore();
 
-setActivePinia(createPinia());
-
-
 describe('Password Store', () => {
 
-    it('Save a UserName', () => {
+    it('Save a UserName', async () => {
 
         let user = 'newUser';
 
@@ -31,7 +28,7 @@ describe('Password Store', () => {
 
     })
 
-    it('Clean Username', () => {
+    it('Clean Username', async () => {
 
         store.deleteUserName();
 

@@ -17,8 +17,16 @@ const store = usePasswordStore();
 
 describe("App.vue", () => {
 
-    it("component render correctly", async () => {
+    it("Component render correctly", async () => {
         expect(wrapper.find("h2").text()).toEqual('Generator-Hash');
+
+    });
+
+    it("Check UserName Store is Empty", async () => {
+
+        store.deleteUserName();
+
+        expect(store.getUsername).toBe('');
 
     });
 
