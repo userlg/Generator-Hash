@@ -1,16 +1,10 @@
 import { describe, it, expect } from "vitest";
 
-import { mount } from '@vue/test-utils';
-
 import { usePasswordStore } from '../src/stores/passwordStore';
 
 import { setActivePinia, createPinia } from 'pinia';
 
-import App from '../src/App.vue';
-
 setActivePinia(createPinia());
-
-const wrapper = mount(App);
 
 const store = usePasswordStore();
 

@@ -11,3 +11,29 @@ html {
 body {
   @apply overflow-hidden min-h-screen h-screen bg-gradient-to-r from-white via-gray-100 to-gray-200;
 }
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+#modal {
+  background-color: rgba(120, 113, 108, .7);
+}
+
+.fade-enter-active {
+  @apply animate-fade-in-down;
+}
+
+.fade-leave-active {
+  @apply animate-fade-out-down;
+}
