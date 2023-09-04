@@ -22,6 +22,8 @@ let activeNewPassword = ref<boolean>(false);
 
 let activeChangeUserName = ref<boolean>(false);
 
+let updateTotal = ref<boolean>(false);
+
 onMounted(() => {
   userName.value = store.getUsername;
 });
@@ -30,6 +32,7 @@ function addUserName(): void {
   if (newUserName.value != undefined && newUserName.value.length > 0) {
     store.addUserName(newUserName.value)
     userName.value = store.getUsername;
+    newUserName.value = '';
   }
 }
 
@@ -67,9 +70,17 @@ function deleteAll(): void {
   store.resetAll();
 }
 
+function updateTotalEnable(): void {
+  updateTotal.value = true;
+}
+
+function updateTotalDisable(): void {
+  updateTotal.value = false;
+}
+
 </script>
 <template>
-  <newPassword :active="activeNewPassword" @close="closeFormNewPassword" />
+  <newPassword :active="activeNewPassword" @close="closeFormNewPassword" @update="updateTotalEnable" />
   <div class="flex flex-col gap-3 justify-center items-center">
     <h2
       class="text-green-600 font-Poppins text-2xl font-semibold text-center my-10 underline cursor-default hover:scale-110 duration-300 ease-linear">
@@ -154,7 +165,7 @@ function deleteAll(): void {
         <h2>Introduzca su usuario</h2>
         <input type="text" required placeholder="escribir"
           class="font-Poppins text-gray-700 indent-1  outline-green-600 rounded" v-model="newUserName">
-        <button
+        <button v-if="newUserName.length > 0"
           class="p-1 bg-green-600 font-Poppins flex flex-row justify-center items-center gap-2 text-sm text-white rounded hover:bg-green-700 duration-300 ease-in">Guardar
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
             class="stroke-2 stroke-white w-3 h-3">
@@ -178,7 +189,7 @@ function deleteAll(): void {
 
       </button>
       <div v-if="store.getTotalElementsPasswordsArray() > 0">
-        <tablePasswords />
+        <tablePasswords :total-update="updateTotal" @stop-update="updateTotalDisable" />
       </div>
       <div v-else>
         <h2 class="text-center font-Poppins animate-pulse text-emerald-600 text-md cursor-default">Cree su Primer

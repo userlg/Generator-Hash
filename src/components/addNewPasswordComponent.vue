@@ -1,17 +1,29 @@
 <script setup lang="ts">
 //Component to Add New Password
 
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 import { usePasswordStore } from "../stores/passwordStore";
 
-//import generateHash from './security/bcrypt';
+import generateHash from '../security/bcrypt';
 
 import Password from "../interfaces/password";
 
 const store = usePasswordStore();
 
 let password = ref<Password>();
+
+let context = ref<string>('');
+
+let hash = ref<string>('');
+
+onMounted(() => {
+    password.value = {
+        context: '',
+        date: '',
+        hash: '',
+    }
+});
 
 //------------Props to active the component
 const props = withDefaults(defineProps<{
@@ -21,18 +33,33 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-    (e: 'close'): void
+    (e: 'close'): void;
+    (e: 'update'): void;
 }>()
 
 function closeForm(): void {
+    cleanVariables();
     emit('close');
+
+}
+
+function cleanVariables(): void {
+    context.value = '';
+    hash.value = '';
+    password.value = undefined;
 }
 
 function savePassword(): void {
+    let localDate = new Date();
+    password.value = {
+        context: context.value,
+        date: localDate.toDateString(),
+        hash: generateHash(hash.value)
+    }
     if (password.value != undefined) {
         store.addNewPassword(password.value);
-        password.value = undefined;
         closeForm();
+        emit('update');
     }
 }
 
@@ -41,11 +68,27 @@ function savePassword(): void {
 <template>
     <Transition name="fade">
         <div v-if="props.active != undefined && props.active == true" id="modal"
-            class="absolute z-50 right-0 left-0 top-0 bottom-0 flex flex-col justify-center items-center">
-            <div
-                class="w-11/12 md:w-1/4 bg-white rounded border border-gray-700 shadow-md shadow-gray-700">
-                <form @submit.prevent="savePassword()" class="font-Poppins flex flex-col justify-center items-center gap-3 p-3">
-                    <h2>Cree su Password</h2>
+            class="absolute z-50 right-0 left-0 top-0 bottom-0 flex flex-col justify-center items-center w-full h-full">
+            <div class="w-11/12 md:w-1/2 lg:w-1/4  bg-white rounded border border-gray-700 shadow-md shadow-gray-700">
+
+                <form @submit.prevent="savePassword()"
+                    class="font-Poppins flex flex-col justify-center items-center gap-3 p-3">
+                    <h2 class="font-Poppins font-semibold text-lg text-center cursor-default text-gray-700">Cree su Hash!
+                    </h2>
+                    <label for="context" class="font-Poppins flex flex-col justify-center gap-1 p-1">
+                        <p class="text-sm text-left">
+                            Contexto
+                        </p>
+                        <input type="text" class="indent-1 border border-gray-600 focus:border-none rounded-sm" required
+                            v-model="context">
+                    </label>
+                    <label for="context" class="font-Poppins flex flex-col justify-center gap-1 p-1">
+                        <p class="text-sm text-left">
+                            Password
+                        </p>
+                        <input type="password" class="indent-1 border border-gray-600 focus:border-none rounded-sm" required
+                            v-model="hash">
+                    </label>
                     <div class="flex flex-row justify-center items-center gap-2">
                         <button
                             class="p-1 bg-green-600 font-Poppins flex flex-row justify-center items-center gap-2 text-sm text-white rounded hover:bg-green-700 duration-300 ease-in">Guardar
@@ -56,7 +99,13 @@ function savePassword(): void {
                             </svg>
                         </button>
                         <button @click.prevent="closeForm"
-                            class="text-white text-sm bg-red-500 hover:bg-red-700 rounded duration-500 ease-linear flex flex-row justify-center items-center gap-2 p-1">Cerrar</button>
+                            class="text-white text-sm bg-red-500 hover:bg-red-700 rounded duration-500 ease-linear flex flex-row justify-center items-center gap-2 p-1">Cerrar
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="stroke-2 stroke-white w-3 h-3">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                            </svg></button>
+                        <button @click="cleanVariables"
+                            class="bg-emerald-600 hover:bg-emerald-700 duration-500 ease-linear p-1 font-Poppins text-white rounded">Limpiar</button>
                     </div>
                 </form>
             </div>

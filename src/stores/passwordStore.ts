@@ -18,6 +18,9 @@ export const usePasswordStore = defineStore("password", {
         getUsername(state): string {
             return state.userName;
         },
+        getPasswords(state): Array<Password> {
+            return state.passwords
+        },
 
     },
     actions: {
@@ -35,6 +38,9 @@ export const usePasswordStore = defineStore("password", {
         },
         deleteUserName(): void {
             this.userName = '';
+        },
+        deletePasswordOfArray(index: number) {
+            this.passwords = this.passwords.filter(item => item.hash != this.passwords[index].hash);
         },
 
         resetAll(): void {

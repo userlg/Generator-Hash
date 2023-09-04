@@ -37,3 +37,33 @@ body {
 .fade-leave-active {
   @apply animate-fade-out-down;
 }
+
+
+.table th,
+.table td {
+  @apply border border-gray-600 rounded-sm;
+}
+
+.table th {
+  @apply text-gray-700 bg-white;
+}
+
+.table tbody tr {
+  @apply font-Poppins;
+}
+
+.table tbody tr:nth-child(2n+1) {
+  @apply bg-green-100;
+}
+
+.table tbody tr:nth-child(2n) {
+  @apply bg-white;
+}
+
+.table {
+  @apply table-fixed mx-auto overflow-hidden lg:border-collapse;
+}
+
+.table tbody tr td {
+  @apply w-full font-Poppins text-center truncate cursor-default;
+}
