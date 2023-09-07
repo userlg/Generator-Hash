@@ -69,6 +69,23 @@ function deleteHash(index: number): void {
     Total.value = store.getTotalElementsPasswordsArray();
 }
 
+function createBodyTable(): Array<any> {
+
+    let body = Array<any>();
+
+    body = [
+        ['#', 'Contexto', 'Hash', 'Fecha'],
+
+    ]
+
+    Passwords.value.forEach((password, index) => body.push([index + 1, password.context, password.hash, password.date]));
+
+
+    return body;
+
+
+}
+
 async function generatePDF(): Promise<void> {
     // margin: [left, top, right, bottom]
 
@@ -77,29 +94,24 @@ async function generatePDF(): Promise<void> {
         content: [
             {
                 toc: {
-                    title: { text: 'Generator-Hash', style: 'header', margin: [5, 10, 0, 12], fontSize: 16 }
+                    title: { text: 'Generator-Hash', style: 'header', margin: [5, 10, 0, 12], fontSize: 16, color: '#0ea5e9', bold: true, italics: true, alignment: 'center' }
                 }
             },
             {
                 text: 'Propietario: ' + store.getUsername,
                 fontSize: 16,
-                margin: [2, 5, 0, 5],
+                margin: [2, 5, 0, 15],
                 bold: true,
             },
             {
                 table: {
-                    // headers are automatically repeated if the table spans over multiple pages
-                    // you can declare how many rows should be treated as headers
                     headerRows: 1,
                     widths: ['*', 'auto', 100, '*'],
 
-                    body: [
-                        ['First', 'Second', 'Third'],
-
-                        Passwords.value[0].context,Passwords.value[0].hash,Passwords.value[0].date
-                    ]
+                    body: createBodyTable()
                 }
             }
+
         ]
     };
 
@@ -119,7 +131,7 @@ async function generatePDF(): Promise<void> {
             <p>Total:</p>
             <p class="text-green-600 font-semibold">{{ Total }}</p>
         </div>
-        <div class="relative w-full">
+        <div class="relative w-full animate-fade-in-right" v-if="Passwords != undefined && Passwords.length > 0">
             <button @click="generatePDF"
                 class="absolute z-20 animate-fade-in-down delay-1000 right-6 bottom-5 top-0 font-Poppins p-3 rounded duration-300 hover:bg-red-800 ease-in-out bg-red-500 text-white flex flex-row justify-center items-center gap-2">PDF<svg
                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
