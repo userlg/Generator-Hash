@@ -4,10 +4,11 @@ import { ref, onMounted } from "vue";
 
 import { usePasswordStore } from '../stores/passwordStore';
 
-import * as pdfMake from "pdfmake/build/pdfmake";
-import * as pdfFonts from 'pdfmake/build/vfs_fonts';
+import download from "downloadjs";
 
-(<any>pdfMake).vfs = pdfFonts.pdfMake.vfs;
+import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
+
+import imgUrlPNG from '../assets/lock.png';
 
 import Password from "../interfaces/password";
 
@@ -69,55 +70,52 @@ function deleteHash(index: number): void {
     Total.value = store.getTotalElementsPasswordsArray();
 }
 
-function createBodyTable(): Array<any> {
-
-    let body = Array<any>();
-
-    body = [
-        ['#', 'Contexto', 'Hash', 'Fecha'],
-
-    ]
-
-    Passwords.value.forEach((password, index) => body.push([index + 1, password.context, password.hash, password.date]));
-
-
-    return body;
-
-
-}
 
 async function generatePDF(): Promise<void> {
-    // margin: [left, top, right, bottom]
 
+    console.log('Generating PDF...');
 
-    let docDefinition = {
-        content: [
-            {
-                toc: {
-                    title: { text: 'Generator-Hash', style: 'header', margin: [5, 10, 0, 12], fontSize: 16, color: '#0ea5e9', bold: true, italics: true, alignment: 'center' }
-                }
-            },
-            {
-                text: 'Propietario: ' + store.getUsername,
-                fontSize: 16,
-                margin: [2, 5, 0, 15],
-                bold: true,
-            },
-            {
-                table: {
-                    headerRows: 1,
-                    widths: ['*', 'auto', 100, '*'],
+    const pdfDoc = await PDFDocument.create();
 
-                    body: createBodyTable()
-                }
-            }
+    pdfDoc.setProducer('Userlg');
 
-        ]
-    };
+    const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
 
-    if (docDefinition != undefined) {
-        pdfMake.createPdf(docDefinition).download();
-    }
+    const page = pdfDoc.addPage();
+    const { height } = page.getSize();
+
+    page.drawText('Generator Hash', {
+        x: 50,
+        y: height - 4 * 22,
+        size: 22,
+        font: timesRomanFont,
+        color: rgb(0, 0.53, 0.71),
+    });
+
+    const pngImageBytes = await fetch(imgUrlPNG).then((res) => res.arrayBuffer());
+
+    const pngImage = await pdfDoc.embedPng(pngImageBytes);
+
+    const pngDims = pngImage.scale(0.40);
+
+    page.drawImage(pngImage, {
+        x: 195,
+        y: height - 5 * 20,
+        width: pngDims.width,
+        height: pngDims.height,
+    });
+
+    page.drawText('Usuario: ' + store.getUsername, {
+        x: 50,
+        y: height - 6 * 22,
+        size: 16,
+        font: timesRomanFont,
+        color: rgb(0, 0, 0),
+    });
+
+    const pdfBytes = await pdfDoc.save();
+
+    download(pdfBytes, "generator-hashes.pdf", "application/pdf");
 
 }
 
@@ -141,7 +139,8 @@ async function generatePDF(): Promise<void> {
                 </svg>
             </button>
         </div>
-        <table class="table w-full md:w-11/12 table-fixed mt-6 animate-fade-in-down duration-300 ease-linear">
+        <table
+            class="table w-full md:w-11/12 table-fixed mt-6 animate-fade-in-down duration-300 ease-linear rounded shadow-md shadow-gray-500 delay-500">
             <thead class="font-Poppins font-semibold">
                 <tr>
                     <th class="w-10 cursor-default">#</th>
