@@ -51,7 +51,7 @@ npm run preview
 
 ![ cpa3 ](public/captures/img3.png)
 
-### Pdf Generate
+### Pdf Generated
 
 ### Created by Userlg
 
