@@ -7,4 +7,5 @@ export default defineConfig({
     chunkSizeWarningLimit: 5000
   },
   plugins: [vue()],
+  base:'/Generator-Hash/settings',
 })
