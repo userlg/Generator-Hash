@@ -117,7 +117,7 @@ async function generatePDF(): Promise<void> {
 
     let spaceY = 34;
 
-    let line = height - 6 * spaceY;
+    let line = height - 7 * spaceY;
 
     console.log(line);
 
