@@ -9,7 +9,8 @@
     "typecheck": "vitest typecheck",
     "preview": "vite preview",
     "test": "vitest --dom",
-    "coverage": "vitest run --coverage"
+    "coverage": "vitest run --coverage",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@vue/test-utils": "^2.4.1",
