@@ -76,17 +76,17 @@ function savePassword(): void {
                     <h2 class="font-Poppins font-semibold text-lg text-center cursor-default text-gray-700">Cree su Hash!
                     </h2>
                     <label for="context" class="font-Poppins flex flex-col justify-center gap-1 p-1">
-                        <p class="text-sm text-left">
+                        <p class="text-sm text-left font-semibold text-teal-600">
                             Contexto
                         </p>
-                        <input type="text" class="indent-1 border border-gray-600 focus:border-none rounded-sm" required
+                        <input type="text" class="indent-1 border border-gray-600 focus:border-none rounded" required
                             v-model="context">
                     </label>
                     <label for="context" class="font-Poppins flex flex-col justify-center gap-1 p-1">
-                        <p class="text-sm text-left">
+                        <p class="text-sm text-left font-semibold text-teal-600">
                             Password
                         </p>
-                        <input type="password" class="indent-1 border border-gray-600 focus:border-none rounded-sm" required
+                        <input type="password" class="indent-1 border border-gray-600 focus:border-none rounded" required
                             v-model="hash">
                     </label>
                     <div class="flex flex-row justify-center items-center gap-2">
@@ -104,8 +104,14 @@ function savePassword(): void {
                                 stroke="currentColor" class="stroke-2 stroke-white w-3 h-3">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                             </svg></button>
-                        <button @click="cleanVariables"
-                            class="bg-emerald-600 hover:bg-emerald-700 duration-500 ease-linear p-1 font-Poppins text-white rounded">Limpiar</button>
+                        <button @click.prevent="cleanVariables"
+                            class="bg-emerald-600 hover:bg-emerald-700 duration-500 ease-linear text-sm p-1 font-Poppins text-white rounded flex flex-row justify-center items-center gap-2">Limpiar
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-3 h-3 stroke-2 stroke-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 9.75L14.25 12m0 0l2.25 2.25M14.25 12l2.25-2.25M14.25 12L12 14.25m-2.58 4.92l-6.375-6.375a1.125 1.125 0 010-1.59L9.42 4.83c.211-.211.498-.33.796-.33H19.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-9.284c-.298 0-.585-.119-.796-.33z" />
+                            </svg>
+                        </button>
                     </div>
                 </form>
             </div>

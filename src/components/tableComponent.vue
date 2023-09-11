@@ -81,6 +81,8 @@ async function generatePDF(): Promise<void> {
 
     const timesRomanFont = await pdfDoc.embedFont(StandardFonts.TimesRoman);
 
+    const courierOblique = await pdfDoc.embedFont(StandardFonts.CourierOblique)
+
     const page = pdfDoc.addPage();
     const { height } = page.getSize();
 
@@ -106,11 +108,28 @@ async function generatePDF(): Promise<void> {
     });
 
     page.drawText('Usuario: ' + store.getUsername, {
-        x: 50,
+        x: 25,
         y: height - 6 * 22,
         size: 16,
         font: timesRomanFont,
         color: rgb(0, 0, 0),
+    });
+
+    let spaceY = 34;
+
+    let line = height - 6 * spaceY;
+
+    console.log(line);
+
+    Passwords.value.forEach((password, index) => {
+        page.drawText(password.context + ' || ' + password.hash + ' || ' + password.date , {
+            x: 10,
+            y: line + index + spaceY,
+            size: 10,
+            font: courierOblique ,
+            color: rgb(0, 0, 0),
+        });
+        spaceY += 16;
     });
 
     const pdfBytes = await pdfDoc.save();
