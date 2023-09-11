@@ -4,5 +4,5 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
   resolve: { alias: { '@': '/src' } },
   plugins: [vue()],
-  base:'/Generator-Hash/settings',
+  base:'/Generator-Hash/',
 })
