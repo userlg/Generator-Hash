@@ -197,4 +197,8 @@ function updateTotalDisable(): void {
       </div>
     </div>
   </Transition>
-</template>
+  <div class="absolute z-20 bottom-0 right-0 left-0 flex flex-col justify-center items-center bg-green-700 py-1"><a
+      href="https://github.com/userlg"
+      class="text-sm text-white duration-500 hover:text-orange-400 capitalize font-Lobster font-thin hover:scale-110 tracking-wide ease-in">Created
+      by
+    Userlg - 2023</a></div></template>

@@ -7,6 +7,7 @@ export default {
   theme: {
     fontFamily: {
       'Poppins': ['Poppins', 'sans-serif'],
+      'Lobster': ['Lobster', 'cursive'],
     },
     extend: {
       keyframes: {
