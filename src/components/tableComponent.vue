@@ -159,7 +159,7 @@ async function generatePDF(): Promise<void> {
             </button>
         </div>
         <table
-            class="table w-full md:w-11/12 table-fixed mt-6 animate-fade-in-down duration-300 ease-linear rounded shadow-md shadow-gray-500 delay-500">
+            class="table w-full mb-10 md:w-11/12 table-fixed mt-6 animate-fade-in-down duration-300 ease-linear rounded shadow-md shadow-gray-500 delay-500">
             <thead class="font-Poppins font-semibold">
                 <tr>
                     <th class="w-10 cursor-default">#</th>

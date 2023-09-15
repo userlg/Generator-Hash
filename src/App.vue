@@ -201,4 +201,5 @@ function updateTotalDisable(): void {
       href="https://github.com/userlg"
       class="text-sm text-white duration-500 hover:text-orange-400 capitalize font-Lobster font-thin hover:scale-110 tracking-wide ease-in">Created
       by
-    Userlg - 2023</a></div></template>
+      Userlg - 2023</a></div>
+</template>

@@ -9,7 +9,7 @@ html {
 }
 
 body {
-  @apply overflow-hidden min-h-screen h-screen bg-gradient-to-r from-white via-gray-100 to-gray-200;
+  @apply overflow-x-hidden min-h-screen h-screen bg-gradient-to-r from-white via-gray-100 to-gray-200;
 }
 
 .slide-fade-enter-active {
