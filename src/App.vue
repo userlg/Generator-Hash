@@ -163,8 +163,10 @@ function updateTotalDisable(): void {
       class="mx-auto p-3 lg:w-1/4 border-2 border-gray-800 rounded shadow shadow-gray-700 animate-fade-in-down mt-10">
       <form @submit.prevent="addUserName()" class="flex flex-col gap-3 font-Poppins justify-center items-center p-4">
         <h2>Introduzca su usuario</h2>
-        <input type="text" required placeholder="escribir"
-          class="font-Poppins text-gray-700 indent-1  outline-green-600 rounded" v-model="newUserName">
+        <label for="name" class="flex flex-row justify-center items-center">
+          <input type="text" required placeholder="escribir" id="name"
+            class="font-Poppins text-gray-700 indent-1 outline-green-600 rounded md:w-11/12" v-model="newUserName">
+        </label>
         <button v-if="newUserName.length > 0"
           class="p-1 bg-green-600 font-Poppins flex flex-row justify-center items-center gap-2 text-sm text-white rounded hover:bg-green-700 duration-300 ease-in">Guardar
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
@@ -197,7 +199,7 @@ function updateTotalDisable(): void {
       </div>
     </div>
   </Transition>
-  <div class="absolute z-20 bottom-0 right-0 left-0 flex flex-col justify-center items-center bg-green-700 py-1"><a
+  <div class="absolute z-10 bottom-0 right-0 left-0 flex flex-col justify-center items-center bg-green-700 py-1"><a
       href="https://github.com/userlg"
       class="text-sm text-white duration-500 hover:text-orange-400 capitalize font-Lobster font-thin hover:scale-110 tracking-wide ease-in">Created
       by
