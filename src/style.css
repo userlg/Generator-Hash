@@ -2,16 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-html {
-  @apply overflow-hidden h-full;
+@layer base {
+  body {
+    @apply bg-dark-950 text-dark-100 min-h-screen font-Poppins antialiased overflow-x-hidden;
+  }
 }
 
-body {
-  @apply overflow-x-hidden min-h-screen h-screen bg-gradient-to-r from-white via-gray-100 to-gray-200;
-}
-
+/* Transitions */
 .slide-fade-enter-active {
   transition: all 0.3s ease-out;
 }
@@ -26,44 +23,12 @@ body {
   opacity: 0;
 }
 
-#modal {
-  background-color: rgba(120, 113, 108, .7);
-}
-
-.fade-enter-active {
-  @apply animate-fade-in-down;
-}
-
+.fade-enter-active,
 .fade-leave-active {
-  @apply animate-fade-out-down;
+  transition: opacity 0.5s ease;
 }
 
-
-.table th,
-.table td {
-  @apply border border-gray-600 rounded-sm;
-}
-
-.table th {
-  @apply text-gray-700 bg-white;
-}
-
-.table tbody tr {
-  @apply font-Poppins;
-}
-
-.table tbody tr:nth-child(2n+1) {
-  @apply bg-green-100;
-}
-
-.table tbody tr:nth-child(2n) {
-  @apply bg-white;
-}
-
-.table {
-  @apply table-fixed mx-auto overflow-hidden lg:border-collapse;
-}
-
-.table tbody tr td {
-  @apply w-full font-Poppins text-center truncate cursor-default;
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }

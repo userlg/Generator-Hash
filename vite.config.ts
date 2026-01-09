@@ -1,8 +1,16 @@
+import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-  resolve: { alias: { '@': '/src' } },
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  },
   plugins: [vue()],
-  base:'/Generator-Hash/',
+  base: '/Generator-Hash/',
+  build: {
+    chunkSizeWarningLimit: 1000 
+  },
 })

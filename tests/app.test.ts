@@ -1,64 +1,32 @@
-import { describe, it, expect } from "vitest";
-
+import { describe, it, expect, beforeEach } from "vitest";
 import { setActivePinia, createPinia } from 'pinia';
-
-import { usePasswordStore } from '../src/stores/passwordStore';
-
 import { mount } from "@vue/test-utils";
-
 import App from '../src/App.vue';
+import { usePasswordStore } from '@/stores/passwordStore';
+// Mock necessary components to avoid deeper rendering issues in unit tests if needed, 
+// but for integration testing App.vue we want to see if it renders children.
 
-
-setActivePinia(createPinia());
-
-const wrapper = mount(App);
-
-const store = usePasswordStore();
-
-describe("App.vue", () => {
-
-    it("Component render correctly", async () => {
-        expect(wrapper.find("h2").text()).toEqual('Generator-Hash');
-
+describe("App.vue Integration", () => {
+    beforeEach(() => {
+        setActivePinia(createPinia());
     });
 
-    it("Check UserName Store is Empty", async () => {
+    it("Renders the Layout Components (Header, Footer, Dashboard)", async () => {
+        const wrapper = mount(App);
 
-        store.deleteUserName();
+        // Check for Header
+        expect(wrapper.findComponent({ name: 'TheHeader' }).exists()).toBe(true);
+        // Check for Footer
+        expect(wrapper.findComponent({ name: 'TheFooter' }).exists()).toBe(true);
+        // Check for UserDashboard
+        expect(wrapper.findComponent({ name: 'UserDashboard' }).exists()).toBe(true);
+    });
 
+    it("Store interaction works within the app context", async () => {
+        const store = usePasswordStore();
         expect(store.getUsername).toBe('');
 
+        store.addUserName('Test User');
+        expect(store.getUsername).toBe('Test User');
     });
-
-    /*it("Show message h2 selector", async () => {
-
-        const wrapper = mount(AppVue);
-
-        expect(wrapper.find('h2').text()).toEqual('Choose your size');
-    });
-
-    it("Show component sizeSelector properly", async () => {
-        const wrapper = mount(AppVue);
-
-        expect(wrapper.findComponent({ name: 'SizeSelector' })).toBeTruthy();
-    });
-    
-    it("Show component sizeSelector properly", async () => {
-       
-        const wrapper = mount(AppVue);
-       
-        expect(wrapper.findComponent({ name: 'SizeSelector' })).toBeTruthy();
-    });
-
-    it("Test on Updated", async () => {
-        
-        const wrapper = mount(AppVue);
-
-        const buttons = wrapper.findComponent({ name: 'SizeSelector' }).findAll('button');
-
-        await buttons[0].trigger('click');
-
-        expect(wrapper.findComponent('onUpdated')).toBeTruthy();
-
-    });*/
 });
