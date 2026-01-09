@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach} from "vitest";
 import { setActivePinia, createPinia } from 'pinia';
 import { mount } from "@vue/test-utils";
 import PasswordForm from '@/components/PasswordForm.vue';

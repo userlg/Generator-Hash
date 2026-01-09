@@ -10,7 +10,6 @@ coverage
 node_modules
 dist-ssr
 *.local
-dist/
 node_modules/
 yarn.lock
 package-lock.json
